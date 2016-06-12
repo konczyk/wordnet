@@ -23,10 +23,14 @@ public class Digraph {
     }
 
     public Digraph(Digraph graph) {
-        this(graph.V);
+        this(graph.V());
         for (Map.Entry<Integer, List<Integer>> entry: graph.neighborhood.entrySet()) {
             neighborhood.put(entry.getKey(), new ArrayList<>(entry.getValue()));
         }
+    }
+
+    public int V() {
+        return V;
     }
 
     public void addEdge(int from, int to) {

@@ -24,6 +24,7 @@ public class DigraphTest {
     public void constructor() {
         Digraph digraph = new Digraph(2);
 
+        assertThat(digraph.V(), is(2));
         assertThat(digraph.neighbors(0), is(emptyIterable()));
         assertThat(digraph.neighbors(1), is(emptyIterable()));
     }
