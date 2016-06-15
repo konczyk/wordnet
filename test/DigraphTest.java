@@ -10,7 +10,7 @@ import org.junit.rules.ExpectedException;
 public class DigraphTest {
 
     @Rule
-    public ExpectedException thrown= ExpectedException.none();
+    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void constructorWithNegativeVerticesThrowsException() {

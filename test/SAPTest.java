@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
 public class SAPTest {
 
     @Rule
-    public ExpectedException thrown= ExpectedException.none();
+    public ExpectedException thrown = ExpectedException.none();
 
     private Digraph acyclicGraph;
     private Digraph cycleGraph;
