@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.IntStream;
 
 public class WordNet {
 
@@ -85,8 +86,26 @@ public class WordNet {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        validateHypernymsGraph(graph);
 
         sap = new SAP(graph);
+    }
+
+    private void validateHypernymsGraph(Digraph graph) {
+        if (new CycleDetector(graph).hasCycle()) {
+            throw new IllegalArgumentException(
+                "hypernyms graph contains a cycle");
+        }
+
+        long roots = IntStream
+            .range(0, graph.V())
+            .filter(i -> graph.outdegree(i) == 0)
+            .limit(2)
+            .count();
+        if (roots > 1) {
+            throw new IllegalArgumentException(
+                "hypernyms graph contains multiple roots");
+        }
     }
 
     private void addHypernym(Digraph graph, String line) {

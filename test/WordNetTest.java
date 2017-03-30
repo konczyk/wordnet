@@ -80,6 +80,24 @@ public class WordNetTest {
     }
 
     @Test
+    public void constructorWithCyclicHypernymsThrowsException() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("hypernyms graph contains a cycle");
+        String cyclicHypernyms = writeToFile(Arrays.asList("0","1,0,3","2,1,0","3,2"));
+
+        new WordNet(createSynsetsFile(), cyclicHypernyms);
+    }
+
+    @Test
+    public void constructorWithMultiRootHypernymsThrowsException() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("hypernyms graph contains multiple roots");
+        String multiRootHypernyms = writeToFile(Arrays.asList("0","1,0","2,0,3"));
+
+        new WordNet(createSynsetsFile(), multiRootHypernyms);
+    }
+
+    @Test
     public void isNounNullThrowsException() {
         thrown.expect(NullPointerException.class);
         thrown.expectMessage("word is null");

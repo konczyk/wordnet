@@ -42,6 +42,12 @@ public class Digraph {
         }
     }
 
+    public int outdegree(int vertex) {
+        validateVertex(vertex);
+
+        return neighborhood.get(vertex).size();
+    }
+
     public Iterable<Integer> neighbors(int vertex) {
         validateVertex(vertex);
 
