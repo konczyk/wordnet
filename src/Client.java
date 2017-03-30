@@ -48,11 +48,11 @@ public class Client {
         jc.setProgramName("Client");
         try {
             jc.parse(args);
-            client.validate();
             if (client.help || args.length == 0) {
                 jc.usage();
                 return;
             }
+            client.validate();
             client.run();
         } catch (ParameterException e) {
             System.out.println(e.getMessage());
