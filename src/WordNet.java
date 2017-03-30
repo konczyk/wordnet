@@ -25,6 +25,21 @@ public class WordNet {
         readHypernyms(hypernymsPath, synsetsById.size());
     }
 
+    private Path getPath(String filename, String filetype) {
+        if (filename == null) {
+            throw new NullPointerException(filetype + " file is null");
+        }
+        Path path = Paths.get(filename);
+        if (!Files.isRegularFile(path)) {
+            throw new IllegalArgumentException(filetype + " file does not exist");
+        }
+        if (!Files.isReadable(path)) {
+            throw new IllegalArgumentException(filetype + " file is not readable");
+        }
+
+        return path;
+    }
+
     private void readSynsets(Path path) {
         Charset charset = StandardCharsets.US_ASCII;
         try (BufferedReader reader = Files.newBufferedReader(path, charset)) {
@@ -87,21 +102,6 @@ public class WordNet {
                 graph.addEdge(synsetId, Integer.parseInt(chunks[i]));
             }
         }
-    }
-
-    private Path getPath(String filename, String filetype) {
-        if (filename == null) {
-            throw new NullPointerException(filetype + " file is null");
-        }
-        Path path = Paths.get(filename);
-        if (!Files.isRegularFile(path)) {
-            throw new IllegalArgumentException(filetype + " file does not exist");
-        }
-        if (!Files.isReadable(path)) {
-            throw new IllegalArgumentException(filetype + " file is not readable");
-        }
-
-        return path;
     }
 
     public Iterable<String> nouns() {
